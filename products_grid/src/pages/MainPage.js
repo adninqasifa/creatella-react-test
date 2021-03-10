@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,26 +8,45 @@ import {
   Image,
 } from 'react-native';
 import Card from '../components/Card';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import axios from 'axios';
+import {fetch_api} from '../store/action';
 
 const MainPage = (props) => {
-  const [setSortbyid] = useState(alldatabase);
-  const [setSortbyprice] = useState(alldatabase);
+  const dispatch = useDispatch();
+  const {data, loading, error} = useSelector((s) => s.reducer1);
+  const [sortbyid, setSortbyid] = useState(data);
+  const [sortbyprice, setSortbyprice] = useState(data);
+  let sponsorId = Math.floor(Math.random() * 1000);
+  let sponsors = {uri: `https://unsplash.it/320/200?image=${sponsorId}`};
 
-  const alldatabase = useSelector((state) => state.details);
-  console.log('==>', alldatabase);
+  //console.log('==>', data);
+
+  const dispatchRedux = () => {
+    dispatch(fetch_api());
+  };
+
+  useEffect(() => {
+    dispatchRedux();
+  }, []);
 
   function kartu() {
     const renderItem = ({item, index}) => {
       return (
         <View>
-          <Card name={item.face} number={item.id} harga={item.price} />
+          <Card
+            face={item.face} //face name
+            price={item.price} //price username
+            size={item.size} //size email
+            date={item.date} //date phone
+            number={item.id} //id id
+          />
         </View>
       );
     };
     return (
       <FlatList
-        data={alldatabase.data}
+        data={data}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
       />
@@ -43,13 +62,14 @@ const MainPage = (props) => {
         range of sizes and prices.
       </Text>
       <Text style={styles.text}>But first, a word from our sponsors:</Text>
-      <Image style={styles.sponsorImage} source={[]} />
+      <Image style={styles.sponsorImage} source={sponsors} />
 
       <View style={styles.sortingButton}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            let sorted = alldatabase.data.sort((a, b) => a.id - b.id);
+            //alert('Sort By Size')
+            let sorted = data.sort((a, b) => a.id - b.id);
             setSortbyid(sorted);
           }}>
           <Text>Sort By ID</Text>
@@ -57,7 +77,8 @@ const MainPage = (props) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            let sorted = alldatabase.data.sort((a, b) => a.price - b.price);
+            //alert('Sort By Size')
+            let sorted = data.sort((a, b) => a.price - b.price);
             setSortbyprice(sorted);
           }}>
           <Text>Sort By Price</Text>
@@ -82,17 +103,18 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   productgrid: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
     marginTop: 5,
     textAlign: 'justify',
   },
   sponsorImage: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
+    alignSelf: 'center',
   },
   sortingButton: {
     flexDirection: 'row',

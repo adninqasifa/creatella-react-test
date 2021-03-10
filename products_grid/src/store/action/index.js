@@ -1,9 +1,5 @@
-import ACTION from '../types';
+import {SAGA} from '../types';
 
-export const chVisibility = (payload) => {
-  return {type: ACTION.SET_VISIBILITY, payload: payload};
-};
-
-export const chDetail = (payload) => {
-  return {type: ACTION.SET_DETAIL_REQUESTED, payload: payload};
-};
+export function fetch_api(data = []) {
+  return {type: SAGA.FETCH_REQUESTED, payload: data};
+}
