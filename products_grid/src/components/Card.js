@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-//import {getRelativeDate} from './Time';
 
 const Card = ({face, price, size, date, number}) => {
   function formatDate(date) {
