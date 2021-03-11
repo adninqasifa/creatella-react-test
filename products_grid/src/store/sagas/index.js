@@ -2,7 +2,6 @@ import axios from 'axios';
 import {put, call, takeLatest} from 'redux-saga/effects';
 import {SAGA, ACTION} from '../types';
 
-//const ASCII_API = 'https://jsonplaceholder.typicode.com/users';
 const ASCII_API = 'http://10.0.2.2:3000/products';
 
 const fetching = () => {
