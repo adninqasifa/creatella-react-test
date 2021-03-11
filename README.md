@@ -1,6 +1,6 @@
 # creatella-react-test
 
-A Code Challenge from Creatella. I created with React Native.
+A Code Challenge from Creatella. I created with React Native. For the data I took from the server.
 
 ## Overview
 
