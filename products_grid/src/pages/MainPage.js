@@ -30,6 +30,7 @@ const MainPage = (props) => {
     dispatchRedux();
   }, []);
 
+  // Function for show the card item
   function kartu() {
     const renderItem = ({item, index}) => {
       return (
