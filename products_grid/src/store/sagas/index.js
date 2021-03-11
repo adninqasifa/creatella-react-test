@@ -15,14 +15,14 @@ const fetching = () => {
 };
 
 function* gettingData() {
-  //yield put({type: ACTION.SET_LOADING, payload: true});
+  yield put({type: ACTION.SET_LOADING, payload: true});
   try {
     const payload = yield call(fetching);
     yield put({type: ACTION.GET_DATA_SUCCESS, payload});
   } catch (err) {
     console.log('gettingData:', err);
   }
-  //yield put({type: ACTION.SET_LOADING, payload: false});
+  yield put({type: ACTION.SET_LOADING, payload: false});
 }
 
 export default function* rootSaga() {

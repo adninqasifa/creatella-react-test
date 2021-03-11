@@ -1,7 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {useSelector} from 'react-redux';
 
 const Card = ({face, price, size, date, number}) => {
+  const {data, loading, error} = useSelector((state) => state.details);
   function formatDate(date) {
     let currentDate = new Date();
     let dateDiff = Math.round(
@@ -17,7 +19,6 @@ const Card = ({face, price, size, date, number}) => {
       return new Date(date).toLocaleDateString('en-US');
     }
   }
-
   return (
     <View style={styles.border}>
       <Text style={styles.faces}>{face}</Text>
@@ -25,7 +26,7 @@ const Card = ({face, price, size, date, number}) => {
         <Text style={styles.text}>PRICE: ${price}</Text>
         <Text style={styles.text}>SIZE: {size}</Text>
         <Text style={styles.textDate}>{formatDate(date)} </Text>
-        <Text style={styles.text}>ID: {number}</Text>
+        {/*<Text style={styles.text}>ID: {number}</Text>*/}
       </View>
     </View>
   );

@@ -14,12 +14,12 @@ import {fetch_api} from '../store/action';
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
-  const {data, loading, error} = useSelector((s) => s.reducer1);
   const [sortbyid, setSortbyid] = useState(data);
   const [sortbyprice, setSortbyprice] = useState(data);
+  const [sortbysize, setSortbysize] = useState(data);
   let sponsorId = Math.floor(Math.random() * 1000);
   let sponsors = {uri: `https://unsplash.it/320/200?image=${sponsorId}`};
-
+  const {data, loading, error} = useSelector((state) => state.details);
   //console.log('==>', data);
 
   const dispatchRedux = () => {
@@ -68,11 +68,11 @@ const MainPage = (props) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            //alert('Sort By Size')
-            let sorted = data.sort((a, b) => a.id - b.id);
-            setSortbyid(sorted);
+            //alert('Sort By Size');
+            let sorted = data.sort((a, b) => a.size - b.size);
+            setSortbysize(sorted);
           }}>
-          <Text>Sort By ID</Text>
+          <Text>Sort By Size</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
@@ -85,8 +85,12 @@ const MainPage = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => alert('Sort By Size')}>
-          <Text>Sort By Size</Text>
+          onPress={() => {
+            //alert('Sort By Size')
+            let sorted = data.sort((a, b) => a.id - b.id);
+            setSortbyid(sorted);
+          }}>
+          <Text>Sort By ID</Text>
         </TouchableOpacity>
       </View>
 
